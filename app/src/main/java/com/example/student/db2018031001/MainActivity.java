@@ -7,13 +7,14 @@ import android.util.Log;
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
-
+    File p;
+    File myFile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        File f = getFilesDir();
-        Log.d("MyFile", f.toString());
-
+        p = getFilesDir();
+        myFile = new File(p, "myfile.txt");
+        Log.d("MyFile", myFile.toString());
     }
 }
