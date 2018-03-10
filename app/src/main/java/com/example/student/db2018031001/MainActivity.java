@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,7 +32,10 @@ public class MainActivity extends AppCompatActivity {
             FileReader fr = new FileReader(myFile);
             BufferedReader br = new BufferedReader(fr);
             String str = br.readLine();
-            Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
+            Log.d("DATA", str);
+            Gson gson = new Gson();
+            Student mystu = gson.fromJson(str, Student.class);
+            Toast.makeText(MainActivity.this, mystu.name, Toast.LENGTH_SHORT).show();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -41,8 +46,15 @@ public class MainActivity extends AppCompatActivity {
     public void clickWrite(View v)
     {
         try {
+            Student stu = new Student();
+            stu.ID = 1;
+            stu.name = "Bob";
+            stu.score = 95;
             FileWriter fw = new FileWriter(myFile);
-            fw.write("Hello World");
+            Gson gson = new Gson();
+
+            String str = gson.toJson(stu);
+            fw.write(str);
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();
